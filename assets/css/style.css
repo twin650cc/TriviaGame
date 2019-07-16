@@ -1,0 +1,19 @@
+body {
+    background-image: url(../images/background.jpg);
+   
+}
+
+.container{
+    position: absolute;
+    top: 40%;
+    left: 30%;
+    margin-top: -50px;
+    margin-left: -50px;
+    width: 100px;
+    height: 100px;
+    color: rgb(7, 85, 154);
+    background-color: black;
+    opacity: .7;
+
+}​
+
