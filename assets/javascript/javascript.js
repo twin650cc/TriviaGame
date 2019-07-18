@@ -21,12 +21,11 @@ var questions={
 
 var timeleft = 25
 
-
-
+//timer
 function startTimer(){
     
     var downloadTimer = setInterval(function(){
-      document.getElementById("timeLeft").innerHTML = timeleft + " seconds left";
+      document.getElementById("timeLeft").innerHTML = "Time Left:"+timeleft + " seconds";
       timeleft--;
       console.log(timeleft)
       if(timeleft <= 0){
@@ -38,6 +37,10 @@ function startTimer(){
 
 }
 
+$(document).ready(function(){
+
+
+    });   
 
 
 
@@ -45,41 +48,76 @@ function startTimer(){
 
 
 
+//start button
+function startEvent(){
 
-function displayQuestion(){
-  $(".list").append('<a class="list-group-item list-group-item-action active">'+questions.question1+'</a>')
-    for (var i=0;i<questions.question1Answers.length;i++){
-      
-        $(".list").append('<a class="list-group-item list-group-item-action">'+questions.question1Answers[i]+'</a>')
-        }
-
-
-
-
-
-
-
-   
+    //What to do after start button pressed
     startTimer()
     console.log(timeleft)
-    $("#startButton").empty()
+    $("#startButton").remove()
 
 
-    var correctanswer=question.question1Answers[1];
-    var chosenanswer= getElementById
-
-    if (chosenanswer=correctanswer){
-        $("#questionForm").html("<h1>Correct!</h1><br>"+"<p>"+questions.question1Answers+"<p>")
-    }
-    else if(co) {
-
-    }
-    else{
-
+    // bring in first question
+    $(".list").append('<a class="list-group-item list-group-item-action active"><b>'+questions.question1+'</b></a>')
+        
+    for (var i=0;i<questions.question1Answers.length;i++){
+      
+        $(".list").append('<a class="list-group-item list-group-item-action button">'+questions.question1Answers[i]+'</a>')
     }
 
+
+    //Detect answer choise
+    $("a").on("click", function() {
+
+       var answerChosen= $(this).text()
+       console.log(answerChosen)
+
+     if (answerChosen==questions.question1CorrectAnswer){
+           alert("correct")
+            
+          ;
+                  $.ajax({
+                    url: "https://api.giphy.com/v1/gifs/search?q=cats&api_key=5oTOOswwnaWtuVaPO79PQjvdHbL8x5GX",
+                    method: "GET"
+                  }).then(function(response) {
+                
+                   
+                   gifUrl=response.data[0].images.original.url
+                   console.log(gifUrl)
+                   console.log(response)
+                
+                  });
+
+                  
+                 var gifImageContainer=$("<img>")
+                 var gifImage=gifImageContainer.attr("src",gifUrl)
+                 gifImage.appendTo("#questionForm")
+
+
+
+
+
+                 var newTimer=5
+           
+                 
+                 var gifTimer=setInterval(function(){
+
+                    newTimer--
+      if(newTimer <= 0){
+        
+             clearInterval(gifTimer)
+         }
+           },1000)
+        }
+
+    })
     
+   
+
 }
+
+
+
 console.log(timeleft)
 //startbutton // start timer and bring in first question
 
